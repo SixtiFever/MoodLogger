@@ -84,11 +84,11 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/main_createLog_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="Button" />
+            android:text="Create Log" />
 
 
     </LinearLayout>
