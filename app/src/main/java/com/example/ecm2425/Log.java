@@ -2,12 +2,13 @@ package com.example.ecm2425;
 
 import android.media.Image;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class Log {
+public class Log implements Serializable {
 
     private UUID mID;
     private String mTitle;

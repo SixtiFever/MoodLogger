@@ -2,6 +2,7 @@ package com.example.ecm2425;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -34,7 +35,9 @@ public class MainActivity extends AppCompatActivity {
             newLog.setTitle(title);
             newLog.setBody(body);
             Log.allLogs.add(newLog);
-            Toast.makeText(this, " " + title + " " + body + " " + newLog.getID(), Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(MainActivity.this, RecordedLogs.class);
+            intent.putExtra("sent_log", newLog); // use serializable version of putExtra
+            startActivity(intent);
         });
     }
 }
