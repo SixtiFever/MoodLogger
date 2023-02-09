@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final String TAG = "TAG";
+
     TextView mTitle;
     TextView mBody;
     Button mCreateLogButton;
@@ -37,7 +39,18 @@ public class MainActivity extends AppCompatActivity {
             Log.allLogs.add(newLog);
             Intent intent = new Intent(MainActivity.this, RecordedLogs.class);
             intent.putExtra("sent_log", newLog); // use serializable version of putExtra
+            createTestLogModels(20);
             startActivity(intent);
         });
+    }
+
+    /* creates test log models to populate recycler view. called on click */
+    void createTestLogModels(int size){
+        Log log;
+        for( int i = 0; i < size; i++ ){
+            log = new Log();
+            log.setTitle("Today was a good day!");
+            Log.allLogs.add(log);
+        }
     }
 }
