@@ -22,13 +22,15 @@ public class RecordedLogs extends AppCompatActivity {
 
         Collections.reverse(Log.allLogs);
         RecyclerView rv = findViewById(R.id.recordedLogs_recyclerView);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, Log.allLogs);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, Log.allLogs, new RecyclerViewInterface() {
+            @Override
+            public void onItemClick(int position) {
+                Intent intent = new Intent(RecordedLogs.this, ViewLog.class);
+                startActivity(intent);
+            }
+        });
         rv.setAdapter(adapter);
         rv.setLayoutManager(new LinearLayoutManager(this));
-
-
-
-
 
     }
 }

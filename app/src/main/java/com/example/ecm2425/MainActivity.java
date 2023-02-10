@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import java.util.Collections;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecyclerViewInterface {
 
     private final String TAG = "TAG";
 
@@ -54,5 +54,10 @@ public class MainActivity extends AppCompatActivity {
             log.setTitle("Today was a good day!");
             Log.allLogs.add(log);
         }
+    }
+
+    @Override
+    public void onItemClick(int position) {
+
     }
 }
