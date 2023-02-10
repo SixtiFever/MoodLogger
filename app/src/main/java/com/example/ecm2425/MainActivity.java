@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Collections;
+
 public class MainActivity extends AppCompatActivity {
 
     private final String TAG = "TAG";
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             Log.allLogs.add(newLog);
             Intent intent = new Intent(MainActivity.this, RecordedLogs.class);
             intent.putExtra("sent_log", newLog); // use serializable version of putExtra
-            createTestLogModels(20);
+            //createTestLogModels(20);
             startActivity(intent);
         });
     }
