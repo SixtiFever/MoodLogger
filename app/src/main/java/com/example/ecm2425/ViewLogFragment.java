@@ -1,6 +1,9 @@
 package com.example.ecm2425;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +13,22 @@ import androidx.fragment.app.Fragment;
 
 public class ViewLogFragment extends Fragment {
 
+    private final String TAG = "details";
+
     private TextView mTitle;
     private TextView mBody;
     private TextView mDate;
+
+    String stringTitle;
+    String stringBody;
+    String stringDate;
+
+    ViewLogFragment(String title, String body, String date){
+        stringTitle = title;
+        stringBody = body;
+        stringDate = date;
+        Log.d(TAG, "ViewLogFragment: Constructor CREATED");
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceStace){
@@ -28,9 +44,11 @@ public class ViewLogFragment extends Fragment {
         mBody = view.findViewById(R.id.viewLog_body_textView);
         mDate = view.findViewById(R.id.viewLog_date_textView);
 
-        mTitle.setText("Title from fragment");
-        mBody.setText("Body from fragment");
-        mDate.setText("03/03/2023");
+        mTitle.setText(stringTitle);
+        mBody.setText(stringBody);
+        mDate.setText(stringDate);
+
+        Log.d(TAG, "onCreateView: REACHED");
 
         return view;
     }
