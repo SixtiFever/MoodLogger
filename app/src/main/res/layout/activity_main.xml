@@ -63,6 +63,13 @@
             android:layout_marginTop="30dp"
             android:text="Create Log" />
 
+        <Button
+            android:id="@+id/main_goToNews_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="News Page" />
+
 
     </LinearLayout>
 
