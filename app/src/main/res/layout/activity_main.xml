@@ -53,7 +53,8 @@
             android:hint="say what's on your mind..."
             android:inputType="textMultiLine"
             android:paddingStart="15dp"
-            android:paddingEnd="15dp" />
+            android:paddingEnd="15dp"
+            android:textColorHint="#757575" />
 
 
         <Button
@@ -72,6 +73,18 @@
 
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/main_quote"
+        android:layout_width="371dp"
+        android:layout_height="143dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="This will hold a random quote"
+        app:layout_constraintBottom_toBottomOf="@+id/main_bgImage"
+        app:layout_constraintEnd_toEndOf="@+id/main_bgImage"
+        app:layout_constraintStart_toStartOf="@+id/main_bgImage"
+        app:layout_constraintTop_toTopOf="@+id/main_bgImage"
+        android:textSize="20sp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
