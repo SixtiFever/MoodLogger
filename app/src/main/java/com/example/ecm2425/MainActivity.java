@@ -2,7 +2,9 @@ package com.example.ecm2425;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -30,6 +32,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Scanner;
 
 public class MainActivity<HttpRequest, HttpResponse> extends AppCompatActivity implements RecyclerViewInterface {
@@ -46,16 +49,21 @@ public class MainActivity<HttpRequest, HttpResponse> extends AppCompatActivity i
     Thread networkThread;
     static boolean resumed;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        resumed = true;
+        //SharedPreferences sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
 
+        resumed = true; // boolean to monitor activity state for api data pull scheduling
+
+        /* quote setup */
         quote = (TextView) findViewById(R.id.main_quote);
-
         quoteURL = buildUrl();
 
+        /* networking - anonymous thread to pull api data every 6 seconds */
         networkThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -89,6 +97,9 @@ public class MainActivity<HttpRequest, HttpResponse> extends AppCompatActivity i
             newLog.setTitle(title);
             newLog.setBody(body);
             Log.allLogs.add(newLog);
+
+            addToSharedPref(newLog, getSharedPref(MainActivity.this));  // add log to persistent storage
+
             Intent intent = new Intent(MainActivity.this, RecordedLogs.class);
             intent.putExtra("sent_log", newLog); // use serializable version of putExtra
             startActivity(intent);
@@ -107,16 +118,6 @@ public class MainActivity<HttpRequest, HttpResponse> extends AppCompatActivity i
         resumed = false;
     }
 
-
-    /* creates test log models to populate recycler view. called on click */
-    void createTestLogModels(int size){
-        Log log;
-        for( int i = 0; i < size; i++ ){
-            log = new Log();
-            log.setTitle("Today was a good day!");
-            Log.allLogs.add(log);
-        }
-    }
 
     @Override
     public void onItemClick(int position) {
@@ -146,6 +147,10 @@ public class MainActivity<HttpRequest, HttpResponse> extends AppCompatActivity i
                 return true;
             case R.id.miSettings:
                 Toast.makeText(this, "Clicked on settings", Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.miPrintData:
+                printSharedPref();
+                android.util.Log.d("pref_Data", "onOptionsItemSelected: ");
                 return true;
             case R.id.miClose:
                 Toast.makeText(this, "Clicked on close", Toast.LENGTH_LONG).show();
@@ -193,10 +198,42 @@ public class MainActivity<HttpRequest, HttpResponse> extends AppCompatActivity i
             urlc.disconnect();
             return jsonObj;
         } catch (Exception e){
-            System.out.println("Error occured");
-            System.out.println(e.toString());
+            e.printStackTrace();
             return null;
         }
+    }
+
+    /* add to shared preference */
+    void addToSharedPref(Log log, SharedPreferences sharedPreferences){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        try {
+            editor.putString(log.getID().toString(), formattedLog(log));
+            editor.apply();
+            android.util.Log.d(TAG, "addToSharedPref: Added: ID: " + log.getID().toString() + " Body: " + log.getBody());
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /* print to logcat. Filter with 'pref_data' tag name
+    * only available on create log */
+    public void printSharedPref(){
+        SharedPreferences pref = getSharedPref(MainActivity.this);
+        Map<String, ?> allData = pref.getAll();
+        for( Map.Entry<String, ?> entry: allData.entrySet() ){
+            android.util.Log.d("pref_data", "Key: " + entry.getKey() + " Value: " + entry.getValue());
+            android.util.Log.d(TAG, "printSharedPref: Success");
+        }
+    }
+
+    /* return shared preference */
+    public static SharedPreferences getSharedPref(Context context){
+        return context.getSharedPreferences(Integer.toString(R.string.shared_pref_key),Context.MODE_PRIVATE);
+    }
+
+    /* formats log contents for shared preference insertion and retrieval */
+    String formattedLog(Log log){
+        return "{"+log.getTitle()+"}["+log.getBody()+"]@"+log.getStringDate()+"@";
     }
 
 }

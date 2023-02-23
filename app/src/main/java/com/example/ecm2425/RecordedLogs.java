@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.Collections;
+import java.util.Map;
 
 public class RecordedLogs extends AppCompatActivity {
 
@@ -23,6 +26,8 @@ public class RecordedLogs extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recorded_logs);
+
+        SharedPreferences sharedPreferences = this.getSharedPreferences(Integer.toString(R.string.shared_pref_key), Context.MODE_PRIVATE);
 
         Collections.reverse(Log.allLogs);
         RecyclerView rv = findViewById(R.id.recordedLogs_recyclerView);
@@ -72,4 +77,17 @@ public class RecordedLogs extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+//    void pullSharedPreferencesData(SharedPreferences sharedPreferences){
+//        sharedPreferences = getSharedPref(RecordedLogs.this);
+//        Map<String, ?> allData = sharedPreferences.getAll();
+//
+//        for(Map.Entry<String, ?> entry: allData.entrySet()){
+//
+//        }
+//    }
+//
+//    public SharedPreferences getSharedPref(Context context){
+//        return context.getSharedPreferences(Integer.toString(R.string.shared_pref_key), Context.MODE_PRIVATE);
+//    }
 }

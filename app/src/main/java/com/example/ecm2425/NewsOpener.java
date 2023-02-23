@@ -46,8 +46,8 @@ public class NewsOpener extends AppCompatActivity {
                 intent = new Intent(NewsOpener.this, RecordedLogs.class);
                 startActivity(intent);
                 return true;
-            case R.id.miCreateLog:
-                intent = new Intent(NewsOpener.this, MainActivity.class);
+            case R.id.miNews:
+                intent = new Intent(NewsOpener.this, NewsOpener.class);
                 startActivity(intent);
                 return true;
             case R.id.miSettings:

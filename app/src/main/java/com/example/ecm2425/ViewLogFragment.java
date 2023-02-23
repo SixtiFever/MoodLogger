@@ -27,7 +27,6 @@ public class ViewLogFragment extends Fragment {
         stringTitle = title;
         stringBody = body;
         stringDate = date;
-        Log.d(TAG, "ViewLogFragment: Constructor CREATED");
     }
 
     @Override
@@ -47,8 +46,6 @@ public class ViewLogFragment extends Fragment {
         mTitle.setText(stringTitle);
         mBody.setText(stringBody);
         mDate.setText(stringDate);
-
-        Log.d(TAG, "onCreateView: REACHED");
 
         return view;
     }
