@@ -57,6 +57,10 @@ public class MainActivity<HttpRequest, HttpResponse> extends AppCompatActivity i
         setContentView(R.layout.activity_main);
         //SharedPreferences sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
 
+        if(Log.allLogs.size() == 0 ){
+            createPersistentLogs();
+        }
+
         resumed = true; // boolean to monitor activity state for api data pull scheduling
 
         /* quote setup */
@@ -134,6 +138,9 @@ public class MainActivity<HttpRequest, HttpResponse> extends AppCompatActivity i
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        SharedPreferences sharedPreferences = getSharedPref(MainActivity.this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
         Intent intent;
         // Handle item selection
         switch (item.getItemId()) {
@@ -149,10 +156,10 @@ public class MainActivity<HttpRequest, HttpResponse> extends AppCompatActivity i
                 Toast.makeText(this, "Clicked on settings", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.miPrintData:
-                printSharedPref();
                 android.util.Log.d("pref_Data", "onOptionsItemSelected: ");
                 return true;
             case R.id.miClose:
+                editor.clear().apply();
                 Toast.makeText(this, "Clicked on close", Toast.LENGTH_LONG).show();
                 return true;
             default:
@@ -209,7 +216,6 @@ public class MainActivity<HttpRequest, HttpResponse> extends AppCompatActivity i
         try {
             editor.putString(log.getID().toString(), formattedLog(log));
             editor.apply();
-            android.util.Log.d(TAG, "addToSharedPref: Added: ID: " + log.getID().toString() + " Body: " + log.getBody());
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -217,12 +223,19 @@ public class MainActivity<HttpRequest, HttpResponse> extends AppCompatActivity i
 
     /* print to logcat. Filter with 'pref_data' tag name
     * only available on create log */
-    public void printSharedPref(){
+    public void createPersistentLogs(){
         SharedPreferences pref = getSharedPref(MainActivity.this);
+
         Map<String, ?> allData = pref.getAll();
         for( Map.Entry<String, ?> entry: allData.entrySet() ){
-            android.util.Log.d("pref_data", "Key: " + entry.getKey() + " Value: " + entry.getValue());
-            android.util.Log.d(TAG, "printSharedPref: Success");
+            android.util.Log.d("pref_data", "createPersistentLogs: " + entry.getValue());
+            String formattedString = (String)entry.getValue();
+            Log newLog = new Log();
+            newLog.setTitle(formattedString.substring(formattedString.indexOf('{')+1,formattedString.indexOf('}')));
+            newLog.setBody(formattedString.substring(formattedString.indexOf('[')+1,formattedString.indexOf(']')));
+            //newLog.setStringDate(formattedString.substring(formattedString.indexOf('@'),formattedString.indexOf('@')));
+            android.util.Log.d("pref_data", (String)entry.getValue());
+            Log.allLogs.add(newLog);
         }
     }
 
@@ -233,7 +246,7 @@ public class MainActivity<HttpRequest, HttpResponse> extends AppCompatActivity i
 
     /* formats log contents for shared preference insertion and retrieval */
     String formattedLog(Log log){
-        return "{"+log.getTitle()+"}["+log.getBody()+"]@"+log.getStringDate()+"@";
+        return "{"+log.getTitle()+"}["+log.getBody()+"]";
     }
 
 }
