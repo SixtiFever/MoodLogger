@@ -1,45 +1,28 @@
 package com.example.ecm2425;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.toolbox.JsonObjectRequest;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
-
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Map;
-import java.util.Scanner;
 
-public class MainActivity<HttpRequest, HttpResponse> extends AppCompatActivity implements RecyclerViewInterface {
+public class MainActivity extends AppCompatActivity implements RecyclerViewInterface {
 
-    private static final String TAG = "TAG";
     private final String API_KEY = "5m1cJmo4lCYar60eRMhm1A==yQMvjeHswVaXi55a";
-    private String requestURL = "https://api.api-ninjas.com/v1/quotes?category=happiness";
 
     TextView mTitle;
     TextView mBody;
@@ -50,12 +33,10 @@ public class MainActivity<HttpRequest, HttpResponse> extends AppCompatActivity i
     static boolean resumed;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //SharedPreferences sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
 
         if(Log.allLogs.size() == 0 ){
             createPersistentLogs();
@@ -64,22 +45,23 @@ public class MainActivity<HttpRequest, HttpResponse> extends AppCompatActivity i
         resumed = true; // boolean to monitor activity state for api data pull scheduling
 
         /* quote setup */
-        quote = (TextView) findViewById(R.id.main_quote);
+        quote = findViewById(R.id.main_quote);
         quoteURL = buildUrl();
 
-        /* networking - anonymous thread to pull api data every 6 seconds */
-        networkThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    while (resumed){
-                        JSONObject jsonObj = getJSONResponseFromAPI(quoteURL, API_KEY);
+        /* networking - anonymous offloaded thread to pull api data every 8 seconds */
+        networkThread = new Thread(() -> {
+            try {
+                while (resumed){
+                    JSONObject jsonObj = getJSONResponseFromAPI(quoteURL, API_KEY);
+                    if(jsonObj!=null){
                         quote.setText(jsonObj.getString("quote"));
-                        try {Thread.sleep(2000);} catch (Exception e){ e.printStackTrace();}
+                        Thread.sleep(8000);
+                    } else {
+                        throw new NullPointerException();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
         networkThread.start();
@@ -101,7 +83,7 @@ public class MainActivity<HttpRequest, HttpResponse> extends AppCompatActivity i
             newLog.setTitle(title);
             newLog.setBody(body);
             Log.allLogs.add(newLog);
-
+            clearFormData();
             addToSharedPref(newLog, getSharedPref(MainActivity.this));  // add log to persistent storage
 
             Intent intent = new Intent(MainActivity.this, RecordedLogs.class);
@@ -141,31 +123,19 @@ public class MainActivity<HttpRequest, HttpResponse> extends AppCompatActivity i
         SharedPreferences sharedPreferences = getSharedPref(MainActivity.this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        Intent intent;
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.miRecordedLogs:
-                intent = new Intent(MainActivity.this, RecordedLogs.class);
-                startActivity(intent);
-                return true;
-            case R.id.miNews:
-                intent = new Intent(MainActivity.this, NewsOpener.class);
-                startActivity(intent);
-                return true;
-            case R.id.miSettings:
-                Toast.makeText(this, "Clicked on settings", Toast.LENGTH_LONG).show();
-                return true;
-            case R.id.miPrintData:
-                android.util.Log.d("pref_Data", "onOptionsItemSelected: ");
-                return true;
-            case R.id.miClose:
-                editor.clear().apply();
-                Toast.makeText(this, "Clicked on close", Toast.LENGTH_LONG).show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if(MenuFunc.menuFunctionality(editor,item,MainActivity.this)){
+            return true;
         }
+        return false;
     }
+
+    /* clear text views */
+    void clearFormData(){
+        mBody.setText("");
+        mTitle.setText("");
+    }
+
+    /********** NETWORKING METHODS **********/
 
     /* build url */
     public static URL buildUrl() {
@@ -193,14 +163,13 @@ public class MainActivity<HttpRequest, HttpResponse> extends AppCompatActivity i
 
             StringBuffer response = new StringBuffer();
             //get result
-            //get result
             BufferedReader br = new BufferedReader(new InputStreamReader(urlc.getInputStream()));
             String l;
             while ((l=br.readLine())!=null) {
                 response.append(l);
             }
+            /* extracting quote from response */
             JSONObject jsonObj = new JSONObject(response.toString().substring(response.indexOf("{"), response.lastIndexOf("}")+1));
-            System.out.println(jsonObj);
             br.close();
             urlc.disconnect();
             return jsonObj;
@@ -209,6 +178,9 @@ public class MainActivity<HttpRequest, HttpResponse> extends AppCompatActivity i
             return null;
         }
     }
+
+
+    /********** SHARED PREF METHODS **********/
 
     /* add to shared preference */
     void addToSharedPref(Log log, SharedPreferences sharedPreferences){
@@ -233,10 +205,10 @@ public class MainActivity<HttpRequest, HttpResponse> extends AppCompatActivity i
             Log newLog = new Log();
             newLog.setTitle(formattedString.substring(formattedString.indexOf('{')+1,formattedString.indexOf('}')));
             newLog.setBody(formattedString.substring(formattedString.indexOf('[')+1,formattedString.indexOf(']')));
-            //newLog.setStringDate(formattedString.substring(formattedString.indexOf('@'),formattedString.indexOf('@')));
             android.util.Log.d("pref_data", (String)entry.getValue());
             Log.allLogs.add(newLog);
         }
+        Log.sortedLogs();
     }
 
     /* return shared preference */
@@ -244,7 +216,7 @@ public class MainActivity<HttpRequest, HttpResponse> extends AppCompatActivity i
         return context.getSharedPreferences(Integer.toString(R.string.shared_pref_key),Context.MODE_PRIVATE);
     }
 
-    /* formats log contents for shared preference insertion and retrieval */
+    /* formats log contents for shared preference insertion and retrieval via substring extraction */
     String formattedLog(Log log){
         return "{"+log.getTitle()+"}["+log.getBody()+"]";
     }

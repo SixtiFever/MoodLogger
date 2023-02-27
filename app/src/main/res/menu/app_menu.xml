@@ -24,8 +24,8 @@
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/miPrintData"
-        android:title="Print Preferences Data"
+        android:id="@+id/miClearLogs"
+        android:title="Clear recorded logs"
         app:showAsAction="never"/>
 
     <item

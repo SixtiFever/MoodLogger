@@ -17,8 +17,12 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class RecordedLogs extends AppCompatActivity {
 
@@ -26,12 +30,9 @@ public class RecordedLogs extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recorded_logs);
-
-        SharedPreferences sharedPreferences = this.getSharedPreferences(Integer.toString(R.string.shared_pref_key), Context.MODE_PRIVATE);
-
-        Collections.reverse(Log.allLogs);
+        Log.sortedLogs();
         RecyclerView rv = findViewById(R.id.recordedLogs_recyclerView);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, Log.allLogs, new RecyclerViewInterface() {
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, Log.reverseSortedLogs, new RecyclerViewInterface() {
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent(RecordedLogs.this, ViewLog.class);
@@ -41,6 +42,7 @@ public class RecordedLogs extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         rv.setAdapter(adapter);
         rv.setLayoutManager(new LinearLayoutManager(this));
 
@@ -55,39 +57,18 @@ public class RecordedLogs extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        SharedPreferences sharedPreferences = getSharedPref(RecordedLogs.this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        Intent intent;
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.miNews:
-                intent = new Intent(RecordedLogs.this, NewsOpener.class);
-                startActivity(intent);
-                return true;
-            case R.id.miCreateLog:
-                intent = new Intent(RecordedLogs.this, MainActivity.class);
-                startActivity(intent);
-                return true;
-            case R.id.miSettings:
-                Toast.makeText(this, "Clicked on settings", Toast.LENGTH_LONG).show();
-                return true;
-            case R.id.miClose:
-                Toast.makeText(this, "Clicked on close", Toast.LENGTH_LONG).show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if(MenuFunc.menuFunctionality(editor,item,RecordedLogs.this)){
+            return true;
         }
+        return false;
     }
 
-//    void pullSharedPreferencesData(SharedPreferences sharedPreferences){
-//        sharedPreferences = getSharedPref(RecordedLogs.this);
-//        Map<String, ?> allData = sharedPreferences.getAll();
-//
-//        for(Map.Entry<String, ?> entry: allData.entrySet()){
-//
-//        }
-//    }
-//
-//    public SharedPreferences getSharedPref(Context context){
-//        return context.getSharedPreferences(Integer.toString(R.string.shared_pref_key), Context.MODE_PRIVATE);
-//    }
+    public SharedPreferences getSharedPref(Context context){
+        return context.getSharedPreferences(Integer.toString(R.string.shared_pref_key), Context.MODE_PRIVATE);
+    }
+
+
 }

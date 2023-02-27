@@ -2,7 +2,9 @@ package com.example.ecm2425;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -38,26 +40,16 @@ public class NewsOpener extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        SharedPreferences sharedPreferences = getSharedPref(NewsOpener.this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        Intent intent;
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.miRecordedLogs:
-                intent = new Intent(NewsOpener.this, RecordedLogs.class);
-                startActivity(intent);
-                return true;
-            case R.id.miNews:
-                intent = new Intent(NewsOpener.this, NewsOpener.class);
-                startActivity(intent);
-                return true;
-            case R.id.miSettings:
-                Toast.makeText(this, "Clicked on settings", Toast.LENGTH_LONG).show();
-                return true;
-            case R.id.miClose:
-                Toast.makeText(this, "Clicked on close", Toast.LENGTH_LONG).show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if(MenuFunc.menuFunctionality(editor,item,NewsOpener.this)){
+            return true;
         }
+        return false;
+    }
+
+    public SharedPreferences getSharedPref(Context context){
+        return context.getSharedPreferences(Integer.toString(R.string.shared_pref_key), Context.MODE_PRIVATE);
     }
 }
