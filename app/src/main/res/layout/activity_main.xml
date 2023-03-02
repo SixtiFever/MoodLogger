@@ -4,7 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/light_daisy"
+    android:paddingStart="25px"
+    android:paddingEnd="25px"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
 
     <ImageView
         android:id="@+id/main_bgImage"
@@ -30,7 +37,7 @@
             android:id="@+id/main_createLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Create a mood log" />
+            android:text="Create a mood log"/>
 
         <EditText
             android:id="@+id/main_logTitle"
@@ -41,7 +48,8 @@
             android:hint="log title"
             android:inputType="textPersonName"
             android:paddingStart="15dp"
-            android:paddingEnd="15dp" />
+            android:paddingEnd="15dp"
+            android:background="@color/white"/>
 
         <EditText
             android:id="@+id/main_logBody"
@@ -54,7 +62,8 @@
             android:inputType="textMultiLine"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:textColorHint="#757575" />
+            android:textColorHint="#757575"
+            android:background="@color/white"/>
 
 
         <Button
@@ -62,14 +71,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="Create Log" />
+            android:text="Create Log"
+            android:backgroundTint="@color/onyx"/>
 
         <Button
             android:id="@+id/main_goToNews_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="News Page" />
+            android:text="News Page"
+            android:backgroundTint="@color/onyx"/>
 
 
     </LinearLayout>
