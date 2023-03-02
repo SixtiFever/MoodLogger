@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">ECM2425</string>
     <string name="shared_pref_key">com.example.ecm2425.SPK</string>
+    <string name="mood_logger">Mood Logger</string>
+    <string name="create_log">Create a new mood log</string>
 </resources>

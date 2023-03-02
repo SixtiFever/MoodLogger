@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         resumed = true; // boolean to monitor activity state for api data pull scheduling
 
         /* quote setup */
-        quote = findViewById(R.id.main_quote);
+        quote = findViewById(R.id.the_quote);
         quoteURL = buildUrl();
 
         /* networking - anonymous offloaded thread to pull api data every 8 seconds */
@@ -91,11 +91,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
             startActivity(intent);
         });
 
-        Button mGoToNewsBtn = findViewById(R.id.main_goToNews_btn);
-        mGoToNewsBtn.setOnClickListener( v -> {
-            Intent intent = new Intent(MainActivity.this, NewsOpener.class);
-            startActivity(intent);
-        });
+//        Button mGoToNewsBtn = findViewById(R.id.main_goToNews_btn);
+//        mGoToNewsBtn.setOnClickListener( v -> {
+//            Intent intent = new Intent(MainActivity.this, NewsOpener.class);
+//            startActivity(intent);
+//        });
     }
 
     @Override
