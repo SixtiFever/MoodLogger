@@ -19,11 +19,6 @@
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/miSettings"
-        android:title="Settings"
-        app:showAsAction="never"/>
-
-    <item
         android:id="@+id/miClearLogs"
         android:title="Clear recorded logs"
         app:showAsAction="never"/>

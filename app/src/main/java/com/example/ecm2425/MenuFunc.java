@@ -31,9 +31,6 @@ public class MenuFunc {
                 intent = new Intent(context, NewsOpener.class);
                 context.startActivity(intent);
                 return true;
-            case R.id.miSettings:
-                Toast.makeText(context, "Clicked on settings", Toast.LENGTH_LONG).show();
-                return true;
             case R.id.miClearLogs:
                 editor.clear();
                 editor.apply();
