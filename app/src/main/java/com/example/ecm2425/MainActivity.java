@@ -90,12 +90,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
             intent.putExtra("sent_log", newLog); // use serializable version of putExtra
             startActivity(intent);
         });
-
-//        Button mGoToNewsBtn = findViewById(R.id.main_goToNews_btn);
-//        mGoToNewsBtn.setOnClickListener( v -> {
-//            Intent intent = new Intent(MainActivity.this, NewsOpener.class);
-//            startActivity(intent);
-//        });
     }
 
     @Override
@@ -200,15 +194,16 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
         Map<String, ?> allData = pref.getAll();
         for( Map.Entry<String, ?> entry: allData.entrySet() ){
-            android.util.Log.d("pref_data", "createPersistentLogs: " + entry.getValue());
             String formattedString = (String)entry.getValue();
             Log newLog = new Log();
             newLog.setTitle(formattedString.substring(formattedString.indexOf('{')+1,formattedString.indexOf('}')));
             newLog.setBody(formattedString.substring(formattedString.indexOf('[')+1,formattedString.indexOf(']')));
-            android.util.Log.d("pref_data", (String)entry.getValue());
             Log.allLogs.add(newLog);
         }
         Log.sortedLogs();
+        for(Log l: Log.reverseSortedLogs ){
+            android.util.Log.d("logs", l.getTitle() + " : " + l.getBody() );
+        }
     }
 
     /* return shared preference */

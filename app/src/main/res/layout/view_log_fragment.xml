@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:paddingStart="15dp">
 
     <LinearLayout
         android:id="@+id/viewLog_linearLayout_title_date"
@@ -12,7 +13,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="10dp">
+        tools:layout_editor_absoluteX="10dp"
+        android:paddingTop="25dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/viewLog_innerConstraintLayout"
@@ -21,13 +23,16 @@
 
             <TextView
                 android:id="@+id/viewLog_title_textView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="The title of the log"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:fontFamily="@font/circular"
+                android:textColor="@color/onyx"
+                android:textSize="22sp"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
@@ -39,6 +44,9 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.928"
                 app:layout_constraintStart_toEndOf="@+id/viewLog_title_textView"
+                android:fontFamily="@font/circular"
+                android:textColor="@color/onyx"
+                android:textSize="14sp"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -54,6 +62,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.457"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewLog_linearLayout_title_date" />
+        android:fontFamily="@font/circular"
+        android:textColor="@color/onyx"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/viewLog_linearLayout_title_date"
+        android:paddingStart="5dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

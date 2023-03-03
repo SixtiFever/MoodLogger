@@ -30,15 +30,14 @@ public class RecordedLogs extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recorded_logs);
-        Log.sortedLogs();
         RecyclerView rv = findViewById(R.id.recordedLogs_recyclerView);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, Log.reverseSortedLogs, new RecyclerViewInterface() {
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent(RecordedLogs.this, ViewLog.class);
-                intent.putExtra("logTitle", Log.allLogs.get(position).getTitle());
-                intent.putExtra("logBody", Log.allLogs.get(position).getBody());
-                intent.putExtra("logDate", Log.allLogs.get(position).getStringDate());
+                intent.putExtra("logTitle", Log.reverseSortedLogs.get(position).getTitle());
+                intent.putExtra("logBody", Log.reverseSortedLogs.get(position).getBody());
+                intent.putExtra("logDate", Log.reverseSortedLogs.get(position).getStringDate());
                 startActivity(intent);
             }
         });
