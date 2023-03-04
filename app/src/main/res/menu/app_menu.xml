@@ -23,9 +23,4 @@
         android:title="Clear recorded logs"
         app:showAsAction="never"/>
 
-    <item
-        android:id="@+id/miClose"
-        android:title="Close App"
-        app:showAsAction="never"/>
-
 </menu>

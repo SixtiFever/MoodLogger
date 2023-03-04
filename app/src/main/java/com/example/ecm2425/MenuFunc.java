@@ -1,5 +1,6 @@
 package com.example.ecm2425;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,10 +35,6 @@ public class MenuFunc {
             case R.id.miClearLogs:
                 editor.clear();
                 editor.apply();
-                return true;
-            case R.id.miClose:
-
-                Toast.makeText(context, "Clicked on close", Toast.LENGTH_LONG).show();
                 return true;
             default:
                 return true;

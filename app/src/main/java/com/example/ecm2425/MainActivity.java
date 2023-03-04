@@ -216,4 +216,5 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         return "{"+log.getTitle()+"}["+log.getBody()+"]";
     }
 
+
 }

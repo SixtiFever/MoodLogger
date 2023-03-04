@@ -31,6 +31,8 @@ public class RecordedLogs extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recorded_logs);
         RecyclerView rv = findViewById(R.id.recordedLogs_recyclerView);
+        Log.sortedLogs();
+        android.util.Log.d("logs", "log count: " + Log.reverseSortedLogs.size());
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, Log.reverseSortedLogs, new RecyclerViewInterface() {
             @Override
             public void onItemClick(int position) {
