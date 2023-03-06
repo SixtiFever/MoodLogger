@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/circular"
         android:text="@string/recordedLogs_title"
-        android:textColor="@color/onyx"
+        android:textColor="@color/raisin_black"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/recordedLogs_recyclerView"
         app:layout_constraintEnd_toEndOf="parent"

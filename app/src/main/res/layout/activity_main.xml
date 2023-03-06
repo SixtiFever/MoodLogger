@@ -61,8 +61,9 @@
                 android:fontFamily="@font/circular"
                 android:gravity="center_horizontal"
                 android:text="@string/create_log"
-                android:textColor="@color/onyx"
-                android:textSize="18sp" />
+                android:textColor="@color/raisin_black"
+                android:layout_marginTop="15dp"
+                android:textSize="24sp" />
 
             <EditText
                 android:id="@+id/main_logTitle"
@@ -91,8 +92,7 @@
                 android:inputType="textMultiLine"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
-                android:textColor="@color/onyx"
-                android:textColorHint="#757575" />
+                android:textColor="@color/onyx" />
 
 
             <Button
