@@ -4,12 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
@@ -54,6 +51,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView title;
         TextView date;
 
+        /* Creates the view holder, and provides an implementation of onClick, which then
+        * calls the anonymous implementation mRecyclerView.onItemClick() as per RecordedLogs.class */
         public MyViewHolder(@NonNull View itemView, RecyclerViewInterface mRecyclerViewInterface) {
             super(itemView);
             title = itemView.findViewById(R.id.recordedLogs_title);

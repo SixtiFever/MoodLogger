@@ -1,8 +1,6 @@
 package com.example.ecm2425;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -11,10 +9,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.Toast;
 
 public class NewsOpener extends AppCompatActivity {
 
+    /* hows the string of the website url */
     private final String newsURL = "https://www.positive.news/";
 
     @Override
@@ -24,6 +22,8 @@ public class NewsOpener extends AppCompatActivity {
 
         Button mNewsOpenerBtn = findViewById(R.id.newsOpener_openNews_btn);
 
+        /* sends an implicit intent on click, opens a browser of the users selection and directs
+        * to the url */
         mNewsOpenerBtn.setOnClickListener( v -> {
             Intent newsIntent = new Intent(Intent.ACTION_VIEW);
             newsIntent.setData(Uri.parse(newsURL));
@@ -40,16 +40,12 @@ public class NewsOpener extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        SharedPreferences sharedPreferences = getSharedPref(NewsOpener.this);
+        SharedPreferences sharedPreferences = DataHandler.getSharedPref(NewsOpener.this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         if(MenuFunc.menuFunctionality(editor,item,NewsOpener.this)){
             return true;
         }
         return false;
-    }
-
-    public SharedPreferences getSharedPref(Context context){
-        return context.getSharedPreferences(Integer.toString(R.string.shared_pref_key), Context.MODE_PRIVATE);
     }
 }

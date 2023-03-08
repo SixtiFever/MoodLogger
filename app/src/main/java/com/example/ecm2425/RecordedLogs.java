@@ -20,7 +20,8 @@ public class RecordedLogs extends AppCompatActivity {
         RecyclerView rv = findViewById(R.id.recordedLogs_recyclerView);
         Log.sortedLogs();  // sort logs
 
-        /* anonymous implementation of my custom made RecyclerViewInterface */
+        /* implementation of Recycler View Adapter that takes the context, log data
+        * and provides an anonymous implementation of my RecyclerViewInterface to provide onItemClick */
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, Log.reverseSortedLogs, new RecyclerViewInterface() {
             @Override
             public void onItemClick(int position) {
@@ -32,6 +33,7 @@ public class RecordedLogs extends AppCompatActivity {
             }
         });
 
+        /* bind the adapter to the Recycler View */
         rv.setAdapter(adapter);
         rv.setLayoutManager(new LinearLayoutManager(this));
 

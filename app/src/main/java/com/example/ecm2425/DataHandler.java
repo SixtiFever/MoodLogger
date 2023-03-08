@@ -8,6 +8,7 @@ public class DataHandler {
     DataHandler(){
     }
 
+    /* static method rto return the shared preference object */
     static SharedPreferences getSharedPref(Context context){
         return context.getSharedPreferences(Integer.toString(R.string.shared_pref_key), Context.MODE_PRIVATE);
     }

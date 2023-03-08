@@ -6,7 +6,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -45,6 +44,8 @@ public class Log implements Serializable {
         if(getIndex() > 200) setIndex(1);
     }
 
+    /* sorts the logs objects via the index field, and then reverses to ensure
+    * index 1 is at the tail */
     static void sortedLogs(){
         ArrayList<Log> reverseSorted = (ArrayList<Log>) allLogs.stream().sorted(Comparator.comparingInt(Log::getIndex)).collect(Collectors.toList());
         Collections.reverse(reverseSorted);
@@ -73,10 +74,6 @@ public class Log implements Serializable {
 
     public String getStringDate() {
         return stringDate;
-    }
-
-    public void setStringDate(String stringDate) {
-        this.stringDate = stringDate;
     }
 
     public UUID getID() {

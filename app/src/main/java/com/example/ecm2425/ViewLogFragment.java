@@ -1,9 +1,6 @@
 package com.example.ecm2425;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +10,6 @@ import androidx.fragment.app.Fragment;
 
 public class ViewLogFragment extends Fragment {
 
-    private final String TAG = "details";
-
     private TextView mTitle;
     private TextView mBody;
     private TextView mDate;
@@ -23,6 +18,7 @@ public class ViewLogFragment extends Fragment {
     String stringBody;
     String stringDate;
 
+    /* constructor */
     ViewLogFragment(String title, String body, String date){
         stringTitle = title;
         stringBody = body;

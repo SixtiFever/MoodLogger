@@ -1,15 +1,10 @@
 package com.example.ecm2425;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
-
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,15 +20,14 @@ public class ViewLog extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_log);
 
-        /* get intent */
+        /* get received intent and set fields to the intent data values */
         Intent receivedIntent = getIntent();
         mTitle = receivedIntent.getStringExtra("logTitle");
         mBody = receivedIntent.getStringExtra("logBody");
         mDate = receivedIntent.getStringExtra("logDate");
 
-        // activate fragment
+        /* activate, populate and commit the fragment */
         FragmentManager fm = getSupportFragmentManager();
-
         fm.beginTransaction().add(R.id.viewLog_fragment_container, new ViewLogFragment(mTitle, mBody, mDate)).commit();
     }
 
