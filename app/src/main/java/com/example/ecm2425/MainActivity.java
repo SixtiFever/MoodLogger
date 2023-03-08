@@ -22,8 +22,8 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewInterface {
 
+    /* fields */
     private final String API_KEY = "5m1cJmo4lCYar60eRMhm1A==yQMvjeHswVaXi55a";
-
     TextView mTitle;
     TextView mBody;
     Button mCreateLogButton;
@@ -42,9 +42,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
             createPersistentLogs();
         }
 
-        resumed = true; // boolean to monitor activity state for api data pull scheduling
+        /* boolean to monitor activity state for api data pull scheduling.
+        * when this activity is paused, resumed is set to false and the networking thread
+        * stops. when onCreate , resumed is set to true and the networking thread resumes */
+        resumed = true;
 
-        /* quote setup */
+        /* quote generation setup */
         quote = findViewById(R.id.the_quote);
         quoteURL = buildUrl();
 
@@ -74,7 +77,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         mBody = findViewById(R.id.main_logBody);
         mCreateLogButton = findViewById(R.id.main_createLog_btn);
 
-        /* when createLogButton is pressed, create Log object with input data */
+        /* when createLogButton is pressed, create Log object with input data,
+        * store the log in shared preferences and add the Log to the
+        * global log array. The form data is also cleared in preperation
+        * for a new log to be entered. */
         mCreateLogButton.setOnClickListener( v -> {
             /** add -> if null functionality **/
             Log newLog = new Log();
@@ -87,11 +93,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
             addToSharedPref(newLog, getSharedPref(MainActivity.this));  // add log to persistent storage
 
             Intent intent = new Intent(MainActivity.this, RecordedLogs.class);
-            intent.putExtra("sent_log", newLog); // use serializable version of putExtra
             startActivity(intent);
         });
     }
 
+    /* sets resumed to false in order to stop networking thread when activity
+    * is not in foreground */
     @Override
     public void onPause(){
         super.onPause();
@@ -104,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
     }
 
+    /* inflates the menu widgets */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -111,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         return true;
     }
 
+    /* deals with menu functionality */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -123,13 +132,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         return false;
     }
 
-    /* clear text views */
+    /* clear form views */
     void clearFormData(){
         mBody.setText("");
         mTitle.setText("");
     }
 
-    /********** NETWORKING METHODS **********/
 
     /* build url */
     public static URL buildUrl() {
@@ -142,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         return url;
     }
 
-    /* returns a json object */
+    /* returns a json object from the api pull */
     public static JSONObject getJSONResponseFromAPI(URL url, String api_key) throws IOException {
         try{
             //make connection
@@ -174,8 +182,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     }
 
 
-    /********** SHARED PREF METHODS **********/
-
     /* add to shared preference */
     void addToSharedPref(Log log, SharedPreferences sharedPreferences){
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -187,8 +193,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         }
     }
 
-    /* print to logcat. Filter with 'pref_data' tag name
-    * only available on create log */
+    /* pulls all logs from Shared Preference and puopulates the
+    * global Log array */
     public void createPersistentLogs(){
         SharedPreferences pref = getSharedPref(MainActivity.this);
 
@@ -200,6 +206,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
             newLog.setBody(formattedString.substring(formattedString.indexOf('[')+1,formattedString.indexOf(']')));
             Log.allLogs.add(newLog);
         }
+        // ensures logs array list is in correct order, based on each Logs index field
         Log.sortedLogs();
         for(Log l: Log.reverseSortedLogs ){
             android.util.Log.d("logs", l.getTitle() + " : " + l.getBody() );

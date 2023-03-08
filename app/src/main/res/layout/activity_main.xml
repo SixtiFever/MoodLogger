@@ -118,7 +118,7 @@
             android:shadowDx="0"
             android:shadowDy="0"
             android:shadowRadius="5"
-            android:text="This will hold a random quote"
+            android:text="@string/default_quote"
             android:textColor="@color/white"
             android:textSize="14sp"
             android:paddingStart="15dp"

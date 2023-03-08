@@ -4,4 +4,5 @@
     <string name="mood_logger">Mood Logger</string>
     <string name="create_log">Create a new mood log</string>
     <string name="recordedLogs_title">Your logs</string>
+    <string name="default_quote">Happiness depends upon ourselves.</string>
 </resources>
