@@ -1,4 +1,4 @@
-package com.example.ecm2425;
+package com.example.ecm2425.app_utils;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.ecm2425.R;
+
 import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
@@ -16,7 +19,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     Context context; // sets the current context of the adapter
     ArrayList<Log> mLogArrayList;  // static array which will be the input data
 
-    RecyclerViewAdapter(Context context, ArrayList<Log> logArrayList, RecyclerViewInterface recyclerViewInterface){
+    public RecyclerViewAdapter(Context context, ArrayList<Log> logArrayList, RecyclerViewInterface recyclerViewInterface){
         this.context = context;
         this.mLogArrayList = logArrayList;
         this.mRecyclerViewInterface = recyclerViewInterface;

@@ -1,14 +1,19 @@
-package com.example.ecm2425;
+package com.example.ecm2425.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
+
+import com.example.ecm2425.app_utils.DataHandler;
+import com.example.ecm2425.app_utils.MenuFunc;
+import com.example.ecm2425.R;
 
 public class NewsOpener extends AppCompatActivity {
 
@@ -23,7 +28,7 @@ public class NewsOpener extends AppCompatActivity {
         Button mNewsOpenerBtn = findViewById(R.id.newsOpener_openNews_btn);
 
         /* sends an implicit intent on click, opens a browser of the users selection and directs
-        * to the url */
+         * to the url */
         mNewsOpenerBtn.setOnClickListener( v -> {
             Intent newsIntent = new Intent(Intent.ACTION_VIEW);
             newsIntent.setData(Uri.parse(newsURL));
@@ -40,10 +45,11 @@ public class NewsOpener extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        SharedPreferences sharedPreferences = DataHandler.getSharedPref(NewsOpener.this);
+        DataHandler dataHandler = new DataHandler();
+        SharedPreferences sharedPreferences = dataHandler.getSharedPref(NewsOpener.this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        if(MenuFunc.menuFunctionality(editor,item,NewsOpener.this)){
+        if(MenuFunc.menuFunctionality(editor,item, NewsOpener.this)){
             return true;
         }
         return false;

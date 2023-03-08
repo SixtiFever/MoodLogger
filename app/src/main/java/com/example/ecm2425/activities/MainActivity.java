@@ -1,4 +1,4 @@
-package com.example.ecm2425;
+package com.example.ecm2425.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
@@ -9,6 +9,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.ecm2425.app_utils.DataHandler;
+import com.example.ecm2425.app_utils.Log;
+import com.example.ecm2425.app_utils.MenuFunc;
+import com.example.ecm2425.R;
+import com.example.ecm2425.app_utils.RecyclerViewInterface;
+
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -42,8 +49,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         }
 
         /* boolean to monitor activity state for api data pull scheduling.
-        * when this activity is paused, resumed is set to false and the networking thread
-        * stops. when onCreate , resumed is set to true and the networking thread resumes */
+         * when this activity is paused, resumed is set to false and the networking thread
+         * stops. when onCreate , resumed is set to true and the networking thread resumes */
         resumed = true;
 
         /* quote generation setup */
@@ -77,11 +84,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         mCreateLogButton = findViewById(R.id.main_createLog_btn);
 
         /* when createLogButton is pressed, create Log object with input data,
-        * store the log in shared preferences and add the Log to the
-        * global log array. The form data is also cleared in preperation
-        * for a new log to be entered. */
+         * store the log in shared preferences and add the Log to the
+         * global log array. The form data is also cleared in preperation
+         * for a new log to be entered. */
         mCreateLogButton.setOnClickListener( v -> {
-            /** add -> if null functionality **/
             Log newLog = new Log();
             String title = mTitle.getText().toString();
             String body = mBody.getText().toString();
@@ -89,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
             newLog.setBody(body);
             Log.allLogs.add(newLog);
             clearFormData();
-            dataHandler.addToSharedPref(newLog, DataHandler.getSharedPref(MainActivity.this));  // add log to persistent storage
+            dataHandler.addToSharedPref(newLog, dataHandler.getSharedPref(MainActivity.this));  // add log to persistent storage
 
             Intent intent = new Intent(MainActivity.this, RecordedLogs.class);
             startActivity(intent);
@@ -97,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     }
 
     /* sets resumed to false in order to stop networking thread when activity
-    * is not in foreground */
+     * is not in foreground */
     @Override
     public void onPause(){
         super.onPause();
@@ -121,11 +127,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     /* deals with menu functionality */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        SharedPreferences sharedPreferences = DataHandler.getSharedPref(MainActivity.this);
+        DataHandler dataHandler = new DataHandler();
+        SharedPreferences sharedPreferences = dataHandler.getSharedPref(MainActivity.this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        if(MenuFunc.menuFunctionality(editor,item,MainActivity.this)){
+        if(MenuFunc.menuFunctionality(editor,item, MainActivity.this)){
             return true;
         }
         return false;
@@ -182,9 +188,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
 
     /* pulls all logs from Shared Preference and populates the
-    * global Log array */
+     * global Log array */
     public void createPersistentLogs(){
-        SharedPreferences pref = DataHandler.getSharedPref(MainActivity.this);
+        DataHandler dataHandler = new DataHandler();
+        SharedPreferences pref = dataHandler.getSharedPref(MainActivity.this);
 
         Map<String, ?> allData = pref.getAll();
         for( Map.Entry<String, ?> entry: allData.entrySet() ){
@@ -203,3 +210,4 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
 
 }
+

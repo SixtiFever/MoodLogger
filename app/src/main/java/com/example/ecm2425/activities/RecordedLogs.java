@@ -1,5 +1,4 @@
-package com.example.ecm2425;
-
+package com.example.ecm2425.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,6 +10,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.example.ecm2425.app_utils.DataHandler;
+import com.example.ecm2425.app_utils.Log;
+import com.example.ecm2425.app_utils.MenuFunc;
+import com.example.ecm2425.R;
+import com.example.ecm2425.app_utils.RecyclerViewAdapter;
+import com.example.ecm2425.app_utils.RecyclerViewInterface;
+
 public class RecordedLogs extends AppCompatActivity {
 
     @Override
@@ -21,7 +27,7 @@ public class RecordedLogs extends AppCompatActivity {
         Log.sortedLogs();  // sort logs
 
         /* implementation of Recycler View Adapter that takes the context, log data
-        * and provides an anonymous implementation of my RecyclerViewInterface to provide onItemClick */
+         * and provides an anonymous implementation of my RecyclerViewInterface to provide onItemClick */
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, Log.reverseSortedLogs, new RecyclerViewInterface() {
             @Override
             public void onItemClick(int position) {
@@ -48,10 +54,11 @@ public class RecordedLogs extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        SharedPreferences sharedPreferences = DataHandler.getSharedPref(RecordedLogs.this);
+        DataHandler dataHandler = new DataHandler();
+        SharedPreferences sharedPreferences = dataHandler.getSharedPref(RecordedLogs.this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        if(MenuFunc.menuFunctionality(editor,item,RecordedLogs.this)){
+        if(MenuFunc.menuFunctionality(editor,item, RecordedLogs.this)){
             return true;
         }
         return false;

@@ -1,9 +1,12 @@
-package com.example.ecm2425;
+package com.example.ecm2425.app_utils;
 
+import com.example.ecm2425.activities.*;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.MenuItem;
+
+import com.example.ecm2425.R;
 
 public class MenuFunc {
 
@@ -13,7 +16,7 @@ public class MenuFunc {
 
     /* performs action based on the option item selected. Takes in the
     * Shared Preferences editor, the menu, the current context as arguments */
-    static boolean menuFunctionality(SharedPreferences.Editor editor, MenuItem item, Context context){
+    public static boolean menuFunctionality(SharedPreferences.Editor editor, MenuItem item, Context context){
 
         Intent intent;
 

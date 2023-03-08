@@ -16,28 +16,28 @@
         android:theme="@style/Theme.ECM2425"
         tools:targetApi="31">
         <activity
-            android:name=".NewsOpener"
+            android:name="com.example.ecm2425.activities.NewsOpener"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ViewLog"
+            android:name="com.example.ecm2425.activities.ViewLog"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".RecordedLogs"
+            android:name="com.example.ecm2425.activities.RecordedLogs"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.ecm2425.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

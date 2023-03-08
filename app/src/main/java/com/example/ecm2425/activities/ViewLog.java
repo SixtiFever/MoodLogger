@@ -1,5 +1,6 @@
-package com.example.ecm2425;
+package com.example.ecm2425.activities;
 
+import com.example.ecm2425.app_utils.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import android.content.Intent;
@@ -8,6 +9,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import com.example.ecm2425.app_utils.DataHandler;
+import com.example.ecm2425.app_utils.MenuFunc;
+import com.example.ecm2425.R;
 
 public class ViewLog extends AppCompatActivity {
 
@@ -40,7 +44,8 @@ public class ViewLog extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        SharedPreferences sharedPreferences = DataHandler.getSharedPref(ViewLog.this);
+        DataHandler dataHandler = new DataHandler();
+        SharedPreferences sharedPreferences = dataHandler.getSharedPref(ViewLog.this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         if(MenuFunc.menuFunctionality(editor,item,ViewLog.this)){

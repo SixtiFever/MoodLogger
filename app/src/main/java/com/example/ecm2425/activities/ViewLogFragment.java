@@ -1,4 +1,4 @@
-package com.example.ecm2425;
+package com.example.ecm2425.activities;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+
+import com.example.ecm2425.R;
 
 public class ViewLogFragment extends Fragment {
 

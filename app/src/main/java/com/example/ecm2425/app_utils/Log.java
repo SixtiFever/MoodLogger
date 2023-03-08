@@ -1,4 +1,4 @@
-package com.example.ecm2425;
+package com.example.ecm2425.app_utils;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -21,11 +21,11 @@ public class Log implements Serializable {
 
     /* statics */
     static int indexCounter = 1;
-    static ArrayList<Log> allLogs = new ArrayList<>();
-    static ArrayList<Log> reverseSortedLogs = new ArrayList<>();
+    public static ArrayList<Log> allLogs = new ArrayList<>();
+    public static ArrayList<Log> reverseSortedLogs = new ArrayList<>();
 
     /* constructor */
-    Log(){
+    public Log(){
         checkResetIndex();
         date = LocalDate.now();
         this.stringDate = formatLocalDate(date);
@@ -46,7 +46,7 @@ public class Log implements Serializable {
 
     /* sorts the logs objects via the index field, and then reverses to ensure
     * index 1 is at the tail */
-    static void sortedLogs(){
+    public static void sortedLogs(){
         ArrayList<Log> reverseSorted = (ArrayList<Log>) allLogs.stream().sorted(Comparator.comparingInt(Log::getIndex)).collect(Collectors.toList());
         Collections.reverse(reverseSorted);
         reverseSortedLogs = reverseSorted;
