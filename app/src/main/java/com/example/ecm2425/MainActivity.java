@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        DataHandler dataHandler = new DataHandler();
 
         if(Log.allLogs.size() == 0 ){
             createPersistentLogs();
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
             newLog.setBody(body);
             Log.allLogs.add(newLog);
             clearFormData();
-            addToSharedPref(newLog, getSharedPref(MainActivity.this));  // add log to persistent storage
+            dataHandler.addToSharedPref(newLog, DataHandler.getSharedPref(MainActivity.this));  // add log to persistent storage
 
             Intent intent = new Intent(MainActivity.this, RecordedLogs.class);
             startActivity(intent);
@@ -123,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        SharedPreferences sharedPreferences = getSharedPref(MainActivity.this);
+        SharedPreferences sharedPreferences = DataHandler.getSharedPref(MainActivity.this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         if(MenuFunc.menuFunctionality(editor,item,MainActivity.this)){
@@ -182,21 +183,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     }
 
 
-    /* add to shared preference */
-    void addToSharedPref(Log log, SharedPreferences sharedPreferences){
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        try {
-            editor.putString(log.getID().toString(), formattedLog(log));
-            editor.apply();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    /* pulls all logs from Shared Preference and puopulates the
+    /* pulls all logs from Shared Preference and populates the
     * global Log array */
     public void createPersistentLogs(){
-        SharedPreferences pref = getSharedPref(MainActivity.this);
+        SharedPreferences pref = DataHandler.getSharedPref(MainActivity.this);
 
         Map<String, ?> allData = pref.getAll();
         for( Map.Entry<String, ?> entry: allData.entrySet() ){
@@ -211,16 +201,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         for(Log l: Log.reverseSortedLogs ){
             android.util.Log.d("logs", l.getTitle() + " : " + l.getBody() );
         }
-    }
-
-    /* return shared preference */
-    public static SharedPreferences getSharedPref(Context context){
-        return context.getSharedPreferences(Integer.toString(R.string.shared_pref_key),Context.MODE_PRIVATE);
-    }
-
-    /* formats log contents for shared preference insertion and retrieval via substring extraction */
-    String formattedLog(Log log){
-        return "{"+log.getTitle()+"}["+log.getBody()+"]";
     }
 
 

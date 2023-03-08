@@ -46,16 +46,12 @@ public class ViewLog extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        SharedPreferences sharedPreferences = getSharedPref(ViewLog.this);
+        SharedPreferences sharedPreferences = DataHandler.getSharedPref(ViewLog.this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         if(MenuFunc.menuFunctionality(editor,item,ViewLog.this)){
             return true;
         }
         return false;
-    }
-
-    public SharedPreferences getSharedPref(Context context){
-        return context.getSharedPreferences(Integer.toString(R.string.shared_pref_key), Context.MODE_PRIVATE);
     }
 }

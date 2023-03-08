@@ -4,7 +4,6 @@ package com.example.ecm2425;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,8 +18,9 @@ public class RecordedLogs extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recorded_logs);
         RecyclerView rv = findViewById(R.id.recordedLogs_recyclerView);
-        Log.sortedLogs();
-        android.util.Log.d("logs", "log count: " + Log.reverseSortedLogs.size());
+        Log.sortedLogs();  // sort logs
+
+        /* anonymous implementation of my custom made RecyclerViewInterface */
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, Log.reverseSortedLogs, new RecyclerViewInterface() {
             @Override
             public void onItemClick(int position) {
@@ -46,7 +46,7 @@ public class RecordedLogs extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        SharedPreferences sharedPreferences = getSharedPref(RecordedLogs.this);
+        SharedPreferences sharedPreferences = DataHandler.getSharedPref(RecordedLogs.this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         if(MenuFunc.menuFunctionality(editor,item,RecordedLogs.this)){
@@ -55,9 +55,6 @@ public class RecordedLogs extends AppCompatActivity {
         return false;
     }
 
-    public SharedPreferences getSharedPref(Context context){
-        return context.getSharedPreferences(Integer.toString(R.string.shared_pref_key), Context.MODE_PRIVATE);
-    }
 
 
 }
