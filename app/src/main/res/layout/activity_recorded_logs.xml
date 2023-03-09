@@ -5,31 +5,17 @@
     android:id="@+id/recordedLogs_title"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecordedLogs"
+    tools:context="com.example.ecm2425.activities.RecordedLogs"
     android:background="@color/light_daisy">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recordedLogs_recyclerView"
-        android:layout_width="414dp"
-        android:layout_height="675dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/circular"
-        android:text="@string/recordedLogs_title"
-        android:textColor="@color/raisin_black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/recordedLogs_recyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.475" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
