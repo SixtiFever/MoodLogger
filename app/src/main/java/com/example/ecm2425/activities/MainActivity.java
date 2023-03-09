@@ -50,7 +50,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         DataHandler dataHandler = new DataHandler();
 
         if (Log.allLogs.size() == 0 ) {
+            android.util.Log.d("logLife", "onCreate: " + Log.allLogs.size());
             createPersistentLogs();
+            android.util.Log.d("logLife", "onCreate: " + Log.allLogs.size());
         }
 
         /* boolean to monitor activity state for api data pull scheduling.
