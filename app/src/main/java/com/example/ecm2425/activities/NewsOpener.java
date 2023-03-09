@@ -17,7 +17,7 @@ import com.example.ecm2425.R;
 
 public class NewsOpener extends AppCompatActivity {
 
-    /* hows the string of the website url */
+    /* string of the website url */
     private final String newsURL = "https://www.positive.news/";
 
     @Override

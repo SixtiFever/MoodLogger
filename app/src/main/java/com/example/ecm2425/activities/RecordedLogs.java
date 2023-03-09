@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-
 import com.example.ecm2425.app_utils.DataHandler;
 import com.example.ecm2425.app_utils.Log;
 import com.example.ecm2425.app_utils.MenuFunc;
@@ -42,7 +41,6 @@ public class RecordedLogs extends AppCompatActivity {
         /* bind the adapter to the Recycler View */
         rv.setAdapter(adapter);
         rv.setLayoutManager(new LinearLayoutManager(this));
-
     }
 
     @Override
@@ -63,7 +61,4 @@ public class RecordedLogs extends AppCompatActivity {
         }
         return false;
     }
-
-
-
 }

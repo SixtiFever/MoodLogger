@@ -1,6 +1,5 @@
 package com.example.ecm2425.activities;
 
-import com.example.ecm2425.app_utils.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import android.content.Intent;
@@ -16,7 +15,9 @@ import com.example.ecm2425.R;
 public class ViewLog extends AppCompatActivity {
 
     String mTitle;
+
     String mBody;
+
     String mDate;
 
     @Override

@@ -5,14 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.MenuItem;
-
 import com.example.ecm2425.R;
 
 public class MenuFunc {
 
-    MenuFunc(){
-
-    }
+    MenuFunc(){ }
 
     /* performs action based on the option item selected. Takes in the
     * Shared Preferences editor, the menu, the current context as arguments */

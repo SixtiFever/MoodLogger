@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.ecm2425.R;
 
 import java.util.ArrayList;
@@ -24,7 +23,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         this.mLogArrayList = logArrayList;
         this.mRecyclerViewInterface = recyclerViewInterface;
     }
-
 
     /* inflates the view holder */
     @NonNull
@@ -72,6 +70,5 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 }
             });
         }
-
     }
 }

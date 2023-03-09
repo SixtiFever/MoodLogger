@@ -13,10 +13,15 @@ public class Log implements Serializable {
 
     /* private fields */
     private UUID mID;
+
     private String mTitle;
+
     private String mBody;
+
     private LocalDate date;
+
     private String stringDate;
+
     private int index;
 
     /* statics */
@@ -52,10 +57,7 @@ public class Log implements Serializable {
         reverseSortedLogs = reverseSorted;
     }
 
-
-
     /* accessors */
-
     public String getTitle() {
         return mTitle;
     }

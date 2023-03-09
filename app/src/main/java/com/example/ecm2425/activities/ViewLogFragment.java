@@ -5,15 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.fragment.app.Fragment;
-
 import com.example.ecm2425.R;
 
 public class ViewLogFragment extends Fragment {
 
     private TextView mTitle;
+
     private TextView mBody;
+
     private TextView mDate;
 
     String stringTitle;

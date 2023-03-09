@@ -2,15 +2,13 @@ package com.example.ecm2425.app_utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
 import com.example.ecm2425.R;
 
 public class DataHandler {
 
-    public DataHandler(){
-    }
+    public DataHandler(){ }
 
-    /* static method rto return the shared preference object */
+    /* static method to return the shared preference object */
     public SharedPreferences getSharedPref(Context context){
         return context.getSharedPreferences(Integer.toString(R.string.shared_pref_key), Context.MODE_PRIVATE);
     }
