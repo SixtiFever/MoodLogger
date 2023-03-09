@@ -13,7 +13,7 @@ public class MenuFunc {
 
     /* performs action based on the option item selected. Takes in the
     * Shared Preferences editor, the menu, the current context as arguments */
-    public static boolean menuFunctionality(SharedPreferences.Editor editor, MenuItem item, Context context){
+    public static boolean menuFunctionality(SharedPreferences.Editor editor, MenuItem item, Context context) {
 
         Intent intent;
 

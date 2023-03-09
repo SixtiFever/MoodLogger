@@ -56,7 +56,7 @@ public class RecordedLogs extends AppCompatActivity {
         SharedPreferences sharedPreferences = dataHandler.getSharedPref(RecordedLogs.this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        if(MenuFunc.menuFunctionality(editor,item, RecordedLogs.this)){
+        if (MenuFunc.menuFunctionality(editor,item, RecordedLogs.this)) {
             return true;
         }
         return false;

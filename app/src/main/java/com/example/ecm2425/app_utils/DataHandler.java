@@ -14,7 +14,7 @@ public class DataHandler {
     }
 
     /* add to shared preference */
-    public void addToSharedPref(Log log, SharedPreferences sharedPreferences){
+    public void addToSharedPref(Log log, SharedPreferences sharedPreferences) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         try {
             editor.putString(log.getID().toString(), formattedLog(log));

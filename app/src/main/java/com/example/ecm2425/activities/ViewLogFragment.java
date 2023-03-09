@@ -34,7 +34,7 @@ public class ViewLogFragment extends Fragment {
 
     /* set up and return the fragments UI to the container */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.view_log_fragment, container, false);
 
         mTitle = view.findViewById(R.id.viewLog_title_textView);

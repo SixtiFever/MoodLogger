@@ -18,7 +18,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     Context context; // sets the current context of the adapter
     ArrayList<Log> mLogArrayList;  // static array which will be the input data
 
-    public RecyclerViewAdapter(Context context, ArrayList<Log> logArrayList, RecyclerViewInterface recyclerViewInterface){
+    public RecyclerViewAdapter(Context context, ArrayList<Log> logArrayList, RecyclerViewInterface recyclerViewInterface) {
         this.context = context;
         this.mLogArrayList = logArrayList;
         this.mRecyclerViewInterface = recyclerViewInterface;
@@ -58,12 +58,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             super(itemView);
             title = itemView.findViewById(R.id.recordedLogs_title);
             date = itemView.findViewById(R.id.recordedLogs_date);
-            itemView.setOnClickListener( new View.OnClickListener(){
+            itemView.setOnClickListener( new View.OnClickListener() {
                 @Override
                 public void onClick(View v){
-                    if( mRecyclerViewInterface != null ){
+                    if ( mRecyclerViewInterface != null ) {
                         int position = getAdapterPosition();
-                        if(position != RecyclerView.NO_POSITION){
+                        if (position != RecyclerView.NO_POSITION) {
                             mRecyclerViewInterface.onItemClick(position);
                         }
                     }

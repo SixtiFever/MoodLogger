@@ -49,7 +49,7 @@ public class ViewLog extends AppCompatActivity {
         SharedPreferences sharedPreferences = dataHandler.getSharedPref(ViewLog.this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        if(MenuFunc.menuFunctionality(editor,item,ViewLog.this)){
+        if (MenuFunc.menuFunctionality(editor,item,ViewLog.this)) {
             return true;
         }
         return false;

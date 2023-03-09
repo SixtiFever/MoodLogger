@@ -49,7 +49,7 @@ public class NewsOpener extends AppCompatActivity {
         SharedPreferences sharedPreferences = dataHandler.getSharedPref(NewsOpener.this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        if(MenuFunc.menuFunctionality(editor,item, NewsOpener.this)){
+        if (MenuFunc.menuFunctionality(editor,item, NewsOpener.this)) {
             return true;
         }
         return false;

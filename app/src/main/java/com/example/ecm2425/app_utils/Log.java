@@ -39,7 +39,7 @@ public class Log implements Serializable {
     }
 
     /* formats the LocalDate into UK formatted String date for UI display */
-    private String formatLocalDate(LocalDate date){
+    private String formatLocalDate(LocalDate date) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return dtf.format(date);
     }
@@ -51,7 +51,7 @@ public class Log implements Serializable {
 
     /* sorts the logs objects via the index field, and then reverses to ensure
     * index 1 is at the tail */
-    public static void sortedLogs(){
+    public static void sortedLogs() {
         ArrayList<Log> reverseSorted = (ArrayList<Log>) allLogs.stream().sorted(Comparator.comparingInt(Log::getIndex)).collect(Collectors.toList());
         Collections.reverse(reverseSorted);
         reverseSortedLogs = reverseSorted;

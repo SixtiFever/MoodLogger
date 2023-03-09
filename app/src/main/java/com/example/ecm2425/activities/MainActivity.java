@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         setContentView(R.layout.activity_main);
         DataHandler dataHandler = new DataHandler();
 
-        if(Log.allLogs.size() == 0 ){
+        if (Log.allLogs.size() == 0 ) {
             createPersistentLogs();
         }
 
@@ -65,9 +65,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         /* networking - anonymous offloaded thread to pull api data every 8 seconds */
         networkThread = new Thread(() -> {
             try {
-                while (resumed){
+                while (resumed) {
                     JSONObject jsonObj = getJSONResponseFromAPI(quoteURL, API_KEY);
-                    if(jsonObj!=null){
+                    if (jsonObj!=null) {
                         quote.setText(jsonObj.getString("quote"));
                         Thread.sleep(8000);
                     } else {
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     /* sets resumed to false in order to stop networking thread when activity
      * is not in foreground */
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
         resumed = false;
     }
@@ -135,14 +135,14 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         SharedPreferences sharedPreferences = dataHandler.getSharedPref(MainActivity.this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        if(MenuFunc.menuFunctionality(editor,item, MainActivity.this)){
+        if (MenuFunc.menuFunctionality(editor,item, MainActivity.this)) {
             return true;
         }
         return false;
     }
 
     /* clear form views */
-    void clearFormData(){
+    void clearFormData() {
         mBody.setText("");
         mTitle.setText("");
     }
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
     /* returns a json object from the api pull */
     public static JSONObject getJSONResponseFromAPI(URL url, String api_key) throws IOException {
-        try{
+        try {
             //make connection
             HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
             urlc.setRequestMethod("GET");
@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
             br.close();
             urlc.disconnect();
             return jsonObj;
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -191,12 +191,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
     /* pulls all logs from Shared Preference and populates the
      * global Log array */
-    public void createPersistentLogs(){
+    public void createPersistentLogs() {
         DataHandler dataHandler = new DataHandler();
         SharedPreferences pref = dataHandler.getSharedPref(MainActivity.this);
         /* get all shared pref data, and iterate to populate array list with persistent data */
         Map<String, ?> allData = pref.getAll();
-        for( Map.Entry<String, ?> entry: allData.entrySet() ){
+        for ( Map.Entry<String, ?> entry: allData.entrySet() ) {
             String formattedString = (String)entry.getValue();
             Log newLog = new Log();
             newLog.setTitle(formattedString.substring(formattedString.indexOf('{')+1,formattedString.indexOf('}')));
@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         }
         // ensures logs array list is in correct order, based on each Logs index field
         Log.sortedLogs();
-        for(Log l: Log.reverseSortedLogs ){
+        for (Log l: Log.reverseSortedLogs ) {
             android.util.Log.d("logs", l.getTitle() + " : " + l.getBody() );
         }
     }
