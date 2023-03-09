@@ -9,13 +9,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.example.ecm2425.app_utils.DataHandler;
 import com.example.ecm2425.app_utils.Log;
 import com.example.ecm2425.app_utils.MenuFunc;
 import com.example.ecm2425.R;
 import com.example.ecm2425.app_utils.RecyclerViewInterface;
-
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,15 +27,22 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
     /* fields */
     private final String API_KEY = "5m1cJmo4lCYar60eRMhm1A==yQMvjeHswVaXi55a";
+
     TextView mTitle;
+
     TextView mBody;
+
     Button mCreateLogButton;
+
     URL quoteURL;
+
     TextView quote;
+
     Thread networkThread;
+
     static boolean resumed;
 
-
+    /* onCreate activity lifecycle */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,10 +78,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
                 e.printStackTrace();
             }
         });
+
         networkThread.start();
-
-
-
 
         /* wire widgets */
         mTitle = findViewById(R.id.main_logTitle);
@@ -85,9 +88,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
         /* when createLogButton is pressed, create Log object with input data,
          * store the log in shared preferences and add the Log to the
-         * global log array. The form data is also cleared in preperation
+         * global log array. The form data is also cleared in preparation
          * for a new log to be entered. */
         mCreateLogButton.setOnClickListener( v -> {
+            /* creating and populating new log object */
             Log newLog = new Log();
             String title = mTitle.getText().toString();
             String body = mBody.getText().toString();
@@ -95,8 +99,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
             newLog.setBody(body);
             Log.allLogs.add(newLog);
             clearFormData();
-            dataHandler.addToSharedPref(newLog, dataHandler.getSharedPref(MainActivity.this));  // add log to persistent storage
-
+            /* add log to Shared Preference */
+            dataHandler.addToSharedPref(newLog, dataHandler.getSharedPref(MainActivity.this));
+            /* explicit intent to RecordedLogs.class */
             Intent intent = new Intent(MainActivity.this, RecordedLogs.class);
             startActivity(intent);
         });
@@ -109,7 +114,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         super.onPause();
         resumed = false;
     }
-
 
     @Override
     public void onItemClick(int position) {
@@ -142,7 +146,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         mBody.setText("");
         mTitle.setText("");
     }
-
 
     /* build url */
     public static URL buildUrl() {
@@ -186,13 +189,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         }
     }
 
-
     /* pulls all logs from Shared Preference and populates the
      * global Log array */
     public void createPersistentLogs(){
         DataHandler dataHandler = new DataHandler();
         SharedPreferences pref = dataHandler.getSharedPref(MainActivity.this);
-
+        /* get all shared pref data, and iterate to populate array list with persistent data */
         Map<String, ?> allData = pref.getAll();
         for( Map.Entry<String, ?> entry: allData.entrySet() ){
             String formattedString = (String)entry.getValue();
@@ -207,7 +209,5 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
             android.util.Log.d("logs", l.getTitle() + " : " + l.getBody() );
         }
     }
-
-
 }
 
