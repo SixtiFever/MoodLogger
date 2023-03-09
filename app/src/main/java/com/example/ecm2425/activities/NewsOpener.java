@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,7 +17,7 @@ import com.example.ecm2425.R;
 public class NewsOpener extends AppCompatActivity {
 
     /* string of the website url */
-    private final String newsURL = "https://www.positive.news/";
+    private final String NEWS_URL = "https://www.positive.news/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +30,7 @@ public class NewsOpener extends AppCompatActivity {
          * to the url */
         mNewsOpenerBtn.setOnClickListener( v -> {
             Intent newsIntent = new Intent(Intent.ACTION_VIEW);
-            newsIntent.setData(Uri.parse(newsURL));
+            newsIntent.setData(Uri.parse(NEWS_URL));
             startActivity(newsIntent);
         });
     }

@@ -37,7 +37,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Log newLog = mLogArrayList.get(position);
-        holder.title.setText(newLog.getTitle());
+        holder.title.setText(newLog.getLogTitle());
     }
 
     /* returns the count of the collection */

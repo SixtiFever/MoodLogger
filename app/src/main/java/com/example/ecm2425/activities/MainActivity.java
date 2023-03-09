@@ -28,11 +28,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     /* fields */
     private final String API_KEY = "5m1cJmo4lCYar60eRMhm1A==yQMvjeHswVaXi55a";
 
-    TextView mTitle;
+    TextView titleText;
 
-    TextView mBody;
+    TextView bodyText;
 
-    Button mCreateLogButton;
+    Button createLogBtn;
 
     URL quoteURL;
 
@@ -82,21 +82,21 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         networkThread.start();
 
         /* wire widgets */
-        mTitle = findViewById(R.id.main_logTitle);
-        mBody = findViewById(R.id.main_logBody);
-        mCreateLogButton = findViewById(R.id.main_createLog_btn);
+        titleText = findViewById(R.id.main_logTitle);
+        bodyText = findViewById(R.id.main_logBody);
+        createLogBtn = findViewById(R.id.main_createLog_btn);
 
         /* when createLogButton is pressed, create Log object with input data,
          * store the log in shared preferences and add the Log to the
          * global log array. The form data is also cleared in preparation
          * for a new log to be entered. */
-        mCreateLogButton.setOnClickListener( v -> {
+        createLogBtn.setOnClickListener(v -> {
             /* creating and populating new log object */
             Log newLog = new Log();
-            String title = mTitle.getText().toString();
-            String body = mBody.getText().toString();
-            newLog.setTitle(title);
-            newLog.setBody(body);
+            String title = titleText.getText().toString();
+            String body = bodyText.getText().toString();
+            newLog.setLogTitle(title);
+            newLog.setLogBody(body);
             Log.allLogs.add(newLog);
             clearFormData();
             /* add log to Shared Preference */
@@ -143,8 +143,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
     /* clear form views */
     void clearFormData() {
-        mBody.setText("");
-        mTitle.setText("");
+        bodyText.setText("");
+        titleText.setText("");
     }
 
     /* build url */
@@ -199,14 +199,14 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         for ( Map.Entry<String, ?> entry: allData.entrySet() ) {
             String formattedString = (String)entry.getValue();
             Log newLog = new Log();
-            newLog.setTitle(formattedString.substring(formattedString.indexOf('{')+1,formattedString.indexOf('}')));
-            newLog.setBody(formattedString.substring(formattedString.indexOf('[')+1,formattedString.indexOf(']')));
+            newLog.setLogTitle(formattedString.substring(formattedString.indexOf('{')+1,formattedString.indexOf('}')));
+            newLog.setLogBody(formattedString.substring(formattedString.indexOf('[')+1,formattedString.indexOf(']')));
             Log.allLogs.add(newLog);
         }
         // ensures logs array list is in correct order, based on each Logs index field
         Log.sortedLogs();
         for (Log l: Log.reverseSortedLogs ) {
-            android.util.Log.d("logs", l.getTitle() + " : " + l.getBody() );
+            android.util.Log.d("logs", l.getLogTitle() + " : " + l.getLogBody() );
         }
     }
 }

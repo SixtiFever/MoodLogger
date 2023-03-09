@@ -10,14 +10,16 @@ import com.example.ecm2425.R;
 
 public class ViewLogFragment extends Fragment {
 
-    private TextView mTitle;
+    private TextView fragTitle;
 
-    private TextView mBody;
+    private TextView fragBody;
 
-    private TextView mDate;
+    private TextView fragDate;
 
     String stringTitle;
+
     String stringBody;
+    
     String stringDate;
 
     /* constructor */
@@ -37,13 +39,13 @@ public class ViewLogFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.view_log_fragment, container, false);
 
-        mTitle = view.findViewById(R.id.viewLog_title_textView);
-        mBody = view.findViewById(R.id.viewLog_body_textView);
-        mDate = view.findViewById(R.id.viewLog_date_textView);
+        fragTitle = view.findViewById(R.id.viewLog_title_textView);
+        fragBody = view.findViewById(R.id.viewLog_body_textView);
+        fragDate = view.findViewById(R.id.viewLog_date_textView);
 
-        mTitle.setText(stringTitle);
-        mBody.setText(stringBody);
-        mDate.setText(stringDate);
+        fragTitle.setText(stringTitle);
+        fragBody.setText(stringBody);
+        fragDate.setText(stringDate);
 
         return view;
     }

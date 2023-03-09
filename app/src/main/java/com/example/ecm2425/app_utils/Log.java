@@ -12,11 +12,11 @@ import java.util.stream.Collectors;
 public class Log implements Serializable {
 
     /* private fields */
-    private UUID mID;
+    private UUID logID;
 
-    private String mTitle;
+    private String logTitle;
 
-    private String mBody;
+    private String logBody;
 
     private LocalDate date;
 
@@ -34,7 +34,7 @@ public class Log implements Serializable {
         checkResetIndex();
         date = LocalDate.now();
         this.stringDate = formatLocalDate(date);
-        this.mID = UUID.randomUUID();
+        this.logID = UUID.randomUUID();
         setIndex(indexCounter++);
     }
 
@@ -58,28 +58,28 @@ public class Log implements Serializable {
     }
 
     /* accessors */
-    public String getTitle() {
-        return mTitle;
+    public String getLogTitle() {
+        return logTitle;
     }
 
-    public void setTitle(String title) {
-        mTitle = title;
+    public void setLogTitle(String logTitle) {
+        this.logTitle = logTitle;
     }
 
-    public String getBody() {
-        return mBody;
+    public String getLogBody() {
+        return logBody;
     }
 
-    public void setBody(String body) {
-        mBody = body;
+    public void setLogBody(String logBody) {
+        this.logBody = logBody;
     }
 
     public String getStringDate() {
         return stringDate;
     }
 
-    public UUID getID() {
-        return mID;
+    public UUID getLogID() {
+        return logID;
     }
 
     public int getIndex() { return this.index; }

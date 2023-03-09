@@ -14,11 +14,11 @@ import com.example.ecm2425.R;
 
 public class ViewLog extends AppCompatActivity {
 
-    String mTitle;
+    String logTitle;
 
-    String mBody;
+    String logBody;
 
-    String mDate;
+    String logDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +27,13 @@ public class ViewLog extends AppCompatActivity {
 
         /* get received intent and set fields to the intent data values */
         Intent receivedIntent = getIntent();
-        mTitle = receivedIntent.getStringExtra("logTitle");
-        mBody = receivedIntent.getStringExtra("logBody");
-        mDate = receivedIntent.getStringExtra("logDate");
+        logTitle = receivedIntent.getStringExtra("logTitle");
+        logBody = receivedIntent.getStringExtra("logBody");
+        logDate = receivedIntent.getStringExtra("logDate");
 
         /* activate, populate and commit the fragment */
         FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().add(R.id.viewLog_fragment_container, new ViewLogFragment(mTitle, mBody, mDate)).commit();
+        fm.beginTransaction().add(R.id.viewLog_fragment_container, new ViewLogFragment(logTitle, logBody, logDate)).commit();
     }
 
     @Override

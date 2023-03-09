@@ -31,8 +31,8 @@ public class RecordedLogs extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent(RecordedLogs.this, ViewLog.class);
-                intent.putExtra("logTitle", Log.reverseSortedLogs.get(position).getTitle());
-                intent.putExtra("logBody", Log.reverseSortedLogs.get(position).getBody());
+                intent.putExtra("logTitle", Log.reverseSortedLogs.get(position).getLogTitle());
+                intent.putExtra("logBody", Log.reverseSortedLogs.get(position).getLogBody());
                 intent.putExtra("logDate", Log.reverseSortedLogs.get(position).getStringDate());
                 startActivity(intent);
             }

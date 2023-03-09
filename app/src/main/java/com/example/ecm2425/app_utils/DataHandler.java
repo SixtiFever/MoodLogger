@@ -17,7 +17,7 @@ public class DataHandler {
     public void addToSharedPref(Log log, SharedPreferences sharedPreferences) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         try {
-            editor.putString(log.getID().toString(), formattedLog(log));
+            editor.putString(log.getLogID().toString(), formattedLog(log));
             editor.apply();
         } catch (Exception e){
             e.printStackTrace();
@@ -26,7 +26,7 @@ public class DataHandler {
 
     /* formats log contents for shared preference insertion and retrieval via substring extraction */
     String formattedLog(Log log){
-        return "{"+log.getTitle()+"}["+log.getBody()+"]";
+        return "{"+log.getLogTitle()+"}["+log.getLogBody()+"]";
     }
 
 }
